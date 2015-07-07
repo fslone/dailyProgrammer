@@ -21,86 +21,86 @@
 // SUPERGLUE DOES NOT BALANCE
 
 (function(){
-	function _balanceWord(word){
-		var alphabet, 
-				letterWeight, 
-				lettersInWord,
-				leftWeight,
-				rightWeight,
-				letterPosition,
-				index,
-				distanceFromCenter,
-				leftLetter,
-				rightLetter,
-				leftString,
-				rightString,
-				wordIsZen;
+  function _balanceWord(word){
+    var alphabet, 
+        letterWeight, 
+        lettersInWord,
+        leftWeight,
+        rightWeight,
+        letterPosition,
+        index,
+        distanceFromCenter,
+        leftLetter,
+        rightLetter,
+        leftString,
+        rightString,
+        wordIsZen;
 
-		wordIsZen = false;
+    wordIsZen = false;
 
-		//build alphabet to get letter values later
-		alphabet = [];
-		alphabet.push("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
+    //build alphabet to get letter values later
+    alphabet = [];
+    alphabet.push("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
 
-		//break up all letters in word to array
-		lettersInWord = word.split("");
-		lettersInWord.forEach(function(letter) {
-			
-			//reset weights and strings
-			leftWeight = 0;
-			rightWeight = 0;
-			leftString = "";
-			rightString = "";
-			
-			//can't ever balance on the first letter or last letter obviously
-			if(lettersInWord.indexOf(letter) !== 0
-				 && lettersInWord.indexOf(letter) + 1 !== lettersInWord.length)
-			{
+    //break up all letters in word to array
+    lettersInWord = word.split("");
+    lettersInWord.forEach(function(letter) {
+      
+      //reset weights and strings
+      leftWeight = 0;
+      rightWeight = 0;
+      leftString = "";
+      rightString = "";
+      
+      //can't ever balance on the first letter or last letter obviously
+      if(lettersInWord.indexOf(letter) !== 0
+         && lettersInWord.indexOf(letter) + 1 !== lettersInWord.length)
+      {
 
-				letterPosition = lettersInWord.indexOf(letter);
-				
-				//find the weight to the left side of the fulcrum
-				for(index = 0; index < letterPosition; index++)
-				{
+        letterPosition = lettersInWord.indexOf(letter);
+        
+        //find the weight to the left side of the fulcrum
+        for(index = 0; index < letterPosition; index++)
+        {
 
-					leftLetter = lettersInWord[index];
+          leftLetter = lettersInWord[index];
 
-					//find the letter weight of each letter from the first letter 
-					//up to the fulcrum and add to the left weight
-					letterWeight = alphabet.indexOf(leftLetter.toLowerCase()) + 1;
-					distanceFromCenter = letterPosition - index;
-					leftWeight += distanceFromCenter * letterWeight;
-					leftString += leftLetter;
-				}
-				
-				//find the weight to the right side of the fulcrum
-				for(index = letterPosition + 1; index < lettersInWord.length; index++)
-				{
+          //find the letter weight of each letter from the first letter 
+          //up to the fulcrum and add to the left weight
+          letterWeight = alphabet.indexOf(leftLetter.toLowerCase()) + 1;
+          distanceFromCenter = letterPosition - index;
+          leftWeight += distanceFromCenter * letterWeight;
+          leftString += leftLetter;
+        }
+        
+        //find the weight to the right side of the fulcrum
+        for(index = letterPosition + 1; index < lettersInWord.length; index++)
+        {
 
-					rightLetter = lettersInWord[index];
+          rightLetter = lettersInWord[index];
 
-					//find the letter weight of each letter from the first letter 
-					//after the fulcrum and to the end of the word
-					letterWeight = alphabet.indexOf(rightLetter.toLowerCase()) + 1;
-					distanceFromCenter = index - letterPosition;
-					rightWeight += distanceFromCenter * letterWeight;
-					rightString += rightLetter;
-				}
+          //find the letter weight of each letter from the first letter 
+          //after the fulcrum and to the end of the word
+          letterWeight = alphabet.indexOf(rightLetter.toLowerCase()) + 1;
+          distanceFromCenter = index - letterPosition;
+          rightWeight += distanceFromCenter * letterWeight;
+          rightString += rightLetter;
+        }
 
-				if(leftWeight === rightWeight) 
-				{
-					wordIsZen = true;
-					console.log(leftString + " " + letter + " " + rightString + " - " + rightWeight.toString());
-				}
+        if(leftWeight === rightWeight) 
+        {
+          wordIsZen = true;
+          console.log(leftString + " " + letter + " " + rightString + " - " + rightWeight.toString());
+        }
 
-			}
+      }
 
-		});
+    });
 
-		if(!wordIsZen) console.log(word + " does not balance.")
+    if(!wordIsZen) console.log(word + " does not balance.")
 
-	}
+  }
 
-	_balanceWord("CONSUBSTANTIATION")
+  _balanceWord("CONSUBSTANTIATION")
 
 }());
