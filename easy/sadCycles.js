@@ -38,63 +38,63 @@
 // 383890, 1057187, 513069, 594452, 570947, 786460, 477201, 239459, 1083396, 841700
 
 (function() {
-	
-	function _findSadCycle(n, startNum) {
-		
-		var numLetters,
-				sums,
-				sadCycle,
-				findCycle,
-				cycleStart,
-				num,
-				sum,
-				index;
+  
+  function _findSadCycle(n, startNum) {
+    
+    var numLetters,
+        sums,
+        sadCycle,
+        findCycle,
+        cycleStart,
+        num,
+        sum,
+        index;
 
-		numLetters = [];
-		sums = [];
-		sadCycle = [];
-		findCycle = true;
-		
-		while(findCycle === true) 
-		{
+    numLetters = [];
+    sums = [];
+    sadCycle = [];
+    findCycle = true;
+    
+    while(findCycle === true) 
+    {
 
-			//turn number to string and split
-			startNum = startNum.toString();
-			numLetters = startNum.split("");
-			sum = 0;
+      //turn number to string and split
+      startNum = startNum.toString();
+      numLetters = startNum.split("");
+      sum = 0;
 
-			//loop through each digit, raise to the power of n, 
-			//and sum with previous digits
-			numLetters.forEach(function(numLetter) {
-				num = parseInt(numLetter);
-				sum	+= Math.pow(num, n);
-			});
+      //loop through each digit, raise to the power of n, 
+      //and sum with previous digits
+      numLetters.forEach(function(numLetter) {
+        num = parseInt(numLetter);
+        sum  += Math.pow(num, n);
+      });
 
-			//append resulting sum to list of sad cycle numbers
-			if(sums.indexOf(sum) === -1) {
-				sums.push(sum);
-				startNum = sum;
-			//if the sum is present then the cycle 
-			// will repeat, so stop there
-			} else {
-				
-				findCycle = false;
-				//grab the actual cycle from the array
-				cycleStart = sums.indexOf(sum);
-				for(index = cycleStart; index < sums.length; index++)
-				{
-					sadCycle.push(sums[index]);
-				}
-			
-			}
+      //append resulting sum to list of sad cycle numbers
+      if(sums.indexOf(sum) === -1) {
+        sums.push(sum);
+        startNum = sum;
+      //if the sum is present then the cycle 
+      // will repeat, so stop there
+      } else {
+        
+        findCycle = false;
+        //grab the actual cycle from the array
+        cycleStart = sums.indexOf(sum);
+        for(index = cycleStart; index < sums.length; index++)
+        {
+          sadCycle.push(sums[index]);
+        }
+      
+      }
 
-		}
+    }
 
-		return sadCycle
+    return sadCycle
 
-	}
+  }
 
-	var sadCycle = _findSadCycle(11, 2);
-	console.log(sadCycle)
-	
+  var sadCycle = _findSadCycle(11, 2);
+  console.log(sadCycle)
+  
 }());
